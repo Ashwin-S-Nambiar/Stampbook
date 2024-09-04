@@ -71,6 +71,10 @@ h2, h3, p{
   text-underline-offset: 4px;
 }
 
+.location a:hover {
+  color: hotpink;
+}
+
 .card-image {
   border-radius: 8px;
   width: 125px;
