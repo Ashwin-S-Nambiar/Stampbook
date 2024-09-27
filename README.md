@@ -1,5 +1,5 @@
 # 🧳 Travel Journal
-Live: https://travel-journal-react-omega.vercel.app/
+**Live: https://travel-journal-react-omega.vercel.app/**
 
 ***Travel Journal App which can be used to document places including details like a short description about it, a picture and it's google maps location.***
 
