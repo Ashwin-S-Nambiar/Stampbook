@@ -87,7 +87,12 @@ We welcome contributions to make Travel Journal even better! Here's how:
 <div align="center">
 
 ### Travel Journal Interface
-![Travel Journal Screenshot](https://github.com/user-attachments/assets/e7c20a1f-036a-4536-b224-443757b993b8)
+![Travel Journal Screenshot](./public/screenshots/LandingPage.png)
+
+## Responsiveness
+![Responsiveness](./public/screenshots/MobileScreen-1.png)
+
+![Responsiveness](./public/screenshots/MobileScreen-2.png))
 
 </div>
 

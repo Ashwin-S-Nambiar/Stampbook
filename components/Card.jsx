@@ -1,19 +1,48 @@
 import React from "react"
+import { MapPin, Calendar, ExternalLink } from 'lucide-react'
 
-export default function Card(props) {
-    return(
-        <div className="card">
-            <img src={props.imageUrl} className="card-image"/>
+export default function Card({ 
+    imageUrl, 
+    location, 
+    googleMapsUrl, 
+    title, 
+    startDate, 
+    endDate, 
+    description,
+    animationDelay 
+}) {
+    return (
+        <div 
+            className="card"
+            style={{ animationDelay: `${animationDelay}ms` }}
+        >
+            <div className="card-image-container">
+                <img 
+                    src={imageUrl} 
+                    className="card-image"
+                    alt={title}
+                    loading="lazy"
+                />
+            </div>
             <div className="card-desc">
                 <div className="location">
-                    <img src="../pin.png" className="pin"/>
-                    <h2>{props.location}</h2>
-                    <a href={props.googleMapsUrl} target="_blank">View on Google Maps</a>
+                    <MapPin size={16} className="pin" color="#F55A5A"/>
+                    <h2>{location}</h2>
+                    <a 
+                        href={googleMapsUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                    >
+                        View on Google Maps <ExternalLink size={12} />
+                    </a>
                 </div>    
-                    <h2>{props.title}</h2>
-                    <h3>{props.startDate} - {props.endDate}</h3>
-                    <p>{props.description}</p>
+                <h2>{title}</h2>
+                <h3>
+                    <Calendar size={14} className="calendar-icon" />
+                    {startDate} - {endDate}
+                </h3>
+                <p>{description}</p>
             </div>
         </div>
     )
-} 
+}
