@@ -92,7 +92,7 @@ We welcome contributions to make Travel Journal even better! Here's how:
 ## Responsiveness
 ![Responsiveness](./public/screenshots/MobileScreen-1.png)
 
-![Responsiveness](./public/screenshots/MobileScreen-2.png))
+![Responsiveness](./public/screenshots/MobileScreen-2.png)
 
 </div>
 
