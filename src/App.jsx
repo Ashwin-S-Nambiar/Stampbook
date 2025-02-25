@@ -8,16 +8,30 @@ import data from './data.js'
 export default function App() {
     const [loading, setLoading] = useState(true)
     const [searchTerm, setSearchTerm] = useState("")
-    
+    const [selectedTags, setSelectedTags] = useState([])
+    const [darkMode, setDarkMode] = useState(false)
+
     useEffect(() => {
-        // Simulate loading time
+        // Set initial theme
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        setDarkMode(isDark)
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
+        
         setTimeout(() => setLoading(false), 1500)
     }, [])
 
-    const filteredData = data.filter(item => 
-        item.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    const toggleTheme = () => {
+        setDarkMode(!darkMode)
+        document.documentElement.setAttribute('data-theme', !darkMode ? 'dark' : 'light')
+    }
+
+    const filteredData = data.filter(item => {
+        const matchesSearch = item.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            item.title.toLowerCase().includes(searchTerm.toLowerCase())
+        const matchesTags = selectedTags.length === 0 || 
+                           selectedTags.some(tag => item.tags.includes(tag))
+        return matchesSearch && matchesTags
+    })
 
     const cardData = filteredData.map((item, index) => (
         <Card
@@ -27,9 +41,33 @@ export default function App() {
         />    
     ))
 
+    const toggleTag = (tag) => {
+        setSelectedTags(prevTags => 
+            prevTags.includes(tag) ? prevTags.filter(t => t !== tag) : [...prevTags, tag]
+        )
+    }
+
     return (
         <div className="app">
-            <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            <Navbar 
+                searchTerm={searchTerm} 
+                setSearchTerm={setSearchTerm}
+                darkMode={darkMode}
+                toggleTheme={toggleTheme}
+            />
+            {!loading && (
+                <div className="tags-container">
+                    {getAllUniqueTags(data).map(tag => (
+                        <button 
+                            key={tag}
+                            className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+                            onClick={() => toggleTag(tag)}
+                        >
+                            {tag}
+                        </button>
+                    ))}
+                </div>
+            )}
             {loading ? (
                 <Loading />
             ) : (
@@ -44,4 +82,8 @@ export default function App() {
             <Footer />
         </div>
     )
+}
+
+function getAllUniqueTags(data) {
+    return [...new Set(data.flatMap(item => item.tags))]
 }
