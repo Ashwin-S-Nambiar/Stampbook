@@ -19,9 +19,10 @@ A digital travel companion that helps you document your adventures with rich det
 - 📍 **Location Mapping** - Integrate precise Google Maps locations for each destination
 - 📝 **Detailed Documentation** - Record comprehensive information about your travels
 - 📸 **Photo Integration** - Upload and showcase your travel photography
-- 🎨 **Intuitive Interface** - User-friendly design for effortless journey logging
+- 🎨 **Intuitive Interface** - User-friendly design for effortless journey logging and with dark/light mode
 - 📱 **Responsive Layout** - Access your travel memories on any device
 - 🗺️ **Geographic Precision** - Mark exact locations of your adventures
+- 🔍 **Search and Filter** - Search and filter the locations accordingly
 
 ## 🛠 Tech Stack
 
@@ -37,6 +38,8 @@ A digital travel companion that helps you document your adventures with rich det
 - Interactive map integration
 - Dynamic content management
 - Smooth transitions and animations
+- Dark and light mode themes
+- Tags and search for filtering
 
 ## 🚀 Installation
 
@@ -87,12 +90,20 @@ We welcome contributions to make Travel Journal even better! Here's how:
 <div align="center">
 
 ### Travel Journal Interface
-![Travel Journal Screenshot](./public/screenshots/LandingPage.png)
+![TravelJournalLanding](./public/screenshots/Travel-Journal-1.png)
 
-## Responsiveness
-![Responsiveness](./public/screenshots/MobileScreen-1.png)
+## Light Mode
+![LightMode](./public/screenshots/Travel-Journal-2.png)
 
-![Responsiveness](./public/screenshots/MobileScreen-2.png)
+## Search Results
+
+![SearchResults](./public/screenshots/Travel-Journal-3.png)
+
+![SearchResults](./public/screenshots/Travel-Journal-4.png)
+
+## Selecting Tags
+
+![Tags](./public/screenshots/Travel-Journal-5.png)
 
 </div>
 

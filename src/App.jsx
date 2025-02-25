@@ -48,39 +48,45 @@ export default function App() {
     }
 
     return (
-        <div className="app">
+        <>
             <Navbar 
                 searchTerm={searchTerm} 
                 setSearchTerm={setSearchTerm}
                 darkMode={darkMode}
                 toggleTheme={toggleTheme}
             />
-            {!loading && (
+            <div className="main-container">
                 <div className="tags-container">
-                    {getAllUniqueTags(data).map(tag => (
-                        <button 
-                            key={tag}
-                            className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
-                            onClick={() => toggleTag(tag)}
-                        >
-                            {tag}
-                        </button>
-                    ))}
-                </div>
-            )}
-            {loading ? (
-                <Loading />
-            ) : (
-                <div className="card-container">
-                    {cardData.length > 0 ? cardData : (
-                        <div className="no-results">
-                            No destinations found matching "{searchTerm}"
+                    {!loading && (
+                        <div className="tags-container">
+                            {getAllUniqueTags(data).map(tag => (
+                                <button 
+                                    key={tag}
+                                    className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+                                    onClick={() => toggleTag(tag)}
+                                >
+                                    {tag}
+                                </button>
+                            ))}
                         </div>
                     )}
                 </div>
-            )}
+                <div className="card-container">
+                    {loading ? (
+                        <Loading />
+                    ) : (
+                        <div className="card-container">
+                            {cardData.length > 0 ? cardData : (
+                                <div className="no-results">
+                                    No destinations found matching "{searchTerm}"
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
             <Footer />
-        </div>
+        </>
     )
 }
 
