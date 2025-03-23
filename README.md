@@ -8,7 +8,7 @@
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-A digital travel companion that helps you document your adventures with rich details, photos, and precise locations using Google Maps integration.
+A digital travel companion that helps you document your adventures with rich details, photos, and precise locations using Google Maps location details.
 
 [Features](#-features) • [Tech Stack](#-tech-stack) • [Installation](#-installation) • [Contributing](#-contributing) • [Screenshots](#-screenshots) • [Live](#-live) • [Author](#-author)
 
