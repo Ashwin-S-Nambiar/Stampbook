@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Navbar from "../components/Navbar"
 import Card from "../components/Card"
 import Footer from "../components/Footer"
@@ -78,7 +78,7 @@ export default function App() {
                         <div className="card-container">
                             {cardData.length > 0 ? cardData : (
                                 <div className="no-results">
-                                    No destinations found matching "{searchTerm}"
+                                    No destinations found matching &qout;{searchTerm}&qout;
                                 </div>
                             )}
                         </div>

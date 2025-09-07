@@ -1,12 +1,10 @@
-import React from "react"
-
 export default function Footer() {
     const currentYear = new Date().getFullYear()
     
     return (
         <footer>
             <div className="footer-content">
-                <p>&copy; {currentYear} Ashwin, All rights reserved.</p>
+                <p>&copy; 2024 - {currentYear} Ashwin, All rights reserved.</p>
                 <div className="social-links">
                     <a href="https://x.com/ashwinnambiar11" aria-label="Twitter">
                         <i className="fab fa-twitter"></i>
