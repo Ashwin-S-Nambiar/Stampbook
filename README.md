@@ -1,4 +1,4 @@
-# Travel Journal 🧳
+# Travel Journal
 
 <div align="center">
 
@@ -14,17 +14,17 @@ A digital travel companion that helps you document your adventures with rich det
 
 </div>
 
-## ✨ Features
+## Features
 
-- 📍 **Location Mapping** - Integrate precise Google Maps locations for each destination
-- 📝 **Detailed Documentation** - Record comprehensive information about your travels
-- 📸 **Photo Integration** - Upload and showcase your travel photography
-- 🎨 **Intuitive Interface** - User-friendly design for effortless journey logging and with dark/light mode
-- 📱 **Responsive Layout** - Access your travel memories on any device
-- 🗺️ **Geographic Precision** - Mark exact locations of your adventures
-- 🔍 **Search and Filter** - Search and filter the locations accordingly
+- **Location Mapping** - Integrate precise Google Maps locations for each destination
+- **Detailed Documentation** - Record comprehensive information about your travels
+- **Photo Integration** - Upload and showcase your travel photography
+- **Intuitive Interface** - User-friendly design for effortless journey logging and with dark/light mode
+- **Responsive Layout** - Access your travel memories on any device
+- **Geographic Precision** - Mark exact locations of your adventures
+- **Search and Filter** - Search and filter the locations accordingly
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend Development
 - **[React](https://reactjs.org/)** - Dynamic user interface development
@@ -41,7 +41,7 @@ A digital travel companion that helps you document your adventures with rich det
 - Dark and light mode themes
 - Tags and search for filtering
 
-## 🚀 Installation
+## Installation
 
 1. **Clone the repository**
 
@@ -63,7 +63,7 @@ A digital travel companion that helps you document your adventures with rich det
    ```
    **The application will be available at `http://localhost:5173`.**
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions to make Travel Journal even better! Here's how:
 
@@ -85,7 +85,7 @@ We welcome contributions to make Travel Journal even better! Here's how:
    ```
 5. Open a Pull Request
 
-## 📸 Screenshots
+## Screenshots
 
 <div align="center">
 
@@ -107,7 +107,7 @@ We welcome contributions to make Travel Journal even better! Here's how:
 
 </div>
 
-## 🌍 Live
+## Live
 
 <div align="center">
 
@@ -115,7 +115,7 @@ We welcome contributions to make Travel Journal even better! Here's how:
 
 </div>
 
-## 👤 Author
+## Author
 
 ### Ashwin S Nambiar
 - Portfolio: [ashwin.co.in](https://ashwin.co.in)
