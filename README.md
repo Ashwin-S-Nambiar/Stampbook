@@ -111,7 +111,7 @@ We welcome contributions to make Travel Journal even better! Here's how:
 
 <div align="center">
 
-[![Visit Site](https://img.shields.io/badge/Visit_Site-000?style=for-the-badge&logo=vercel&logoColor=white)](https://travel-journal-react-omega.vercel.app/)
+[![Visit Site](https://img.shields.io/badge/Visit_Site-000?style=for-the-badge&logo=vercel&logoColor=white)](https://travel.ashwin.co.in)
 
 </div>
 
