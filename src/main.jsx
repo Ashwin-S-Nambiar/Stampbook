@@ -1,13 +1,26 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
+import './index.css';
+import { lazy, StrictMode, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
 
-import App from "./App"
+const NotFound = lazy(() => import('./components/NotFound.jsx'));
+const home = location.pathname === '/' || location.pathname === '/index.html';
 
-const rootElement = document.getElementById("root")
-const root = createRoot(rootElement)
-
-root.render(
+createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
-  </StrictMode>
-)
+    {home ? (
+      <App />
+    ) : (
+      <Suspense>
+        <NotFound />
+      </Suspense>
+    )}
+  </StrictMode>,
+);
+
+const reveal = () =>
+  requestAnimationFrame(() => document.documentElement.classList.add('ready'));
+Promise.race([
+  document.fonts.ready,
+  new Promise((resolve) => setTimeout(resolve, 600)),
+]).then(reveal);
