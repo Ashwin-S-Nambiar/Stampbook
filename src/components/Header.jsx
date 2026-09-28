@@ -76,6 +76,7 @@ function Menu() {
       <button
         type="button"
         aria-label="More"
+        data-tip="Menu"
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
