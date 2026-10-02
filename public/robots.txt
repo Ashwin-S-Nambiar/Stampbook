@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stampbook.ashwin.co.in/sitemap.xml
