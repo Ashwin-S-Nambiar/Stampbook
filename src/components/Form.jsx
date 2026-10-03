@@ -358,13 +358,13 @@ export default function Form({ trip, spread, list }) {
               <Thumb
                 id={p}
                 alt={`Photo ${i + 1}`}
-                className="aspect-square rounded-[2px]"
+                className="aspect-square rounded-xs"
               />
               <button
                 type="button"
                 aria-label={`Remove photo ${i + 1}`}
                 onClick={() => dropPhoto(p)}
-                className="press absolute -end-1.5 -top-1.5 grid size-6 place-items-center rounded-full bg-ink text-paper shadow"
+                className="press absolute -inset-e-1.5 -top-1.5 grid size-6 place-items-center rounded-full bg-ink text-paper shadow"
               >
                 <X weight="bold" className="size-3" />
               </button>
@@ -384,7 +384,7 @@ export default function Form({ trip, spread, list }) {
             <button
               type="button"
               onClick={() => fileInput.current?.click()}
-              className="press grid aspect-square w-full place-items-center content-center gap-1 rounded-[4px] border-[1.5px] border-ink-3/60 border-dashed text-ink-2 transition-colors duration-150 hover-fine:border-ink-2 hover-fine:text-ink"
+              className="press grid aspect-square w-full place-items-center content-center gap-1 rounded-sm border-[1.5px] border-ink-3/60 border-dashed text-ink-2 transition-colors duration-150 hover-fine:border-ink-2 hover-fine:text-ink"
             >
               <Camera className="size-5" />
               <span className="font-medium text-[0.6875rem]">Add</span>

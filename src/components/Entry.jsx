@@ -55,7 +55,7 @@ function Prints({ ids, onOpen, place }) {
             <Thumb
               id={id}
               alt={`${place}, photo ${i + 1}`}
-              className="aspect-square rounded-[2px]"
+              className="aspect-square rounded-xs"
             />
           </button>
         </li>
@@ -120,7 +120,7 @@ export default function Entry({ trip, spread }) {
         disabled={at <= 0}
         onClick={() => step(-1)}
       >
-        <CaretLeft weight="bold" className="!size-4" />
+        <CaretLeft weight="bold" className="size-4!" />
       </button>
       <span className="min-w-12 text-center font-mono text-ink-2 text-xs tabular-nums">
         {at + 1} of {list.length}
@@ -132,7 +132,7 @@ export default function Entry({ trip, spread }) {
         disabled={at >= list.length - 1}
         onClick={() => step(1)}
       >
-        <CaretRight weight="bold" className="!size-4" />
+        <CaretRight weight="bold" className="size-4!" />
       </button>
     </div>
   );

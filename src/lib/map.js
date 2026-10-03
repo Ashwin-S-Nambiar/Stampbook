@@ -1,3 +1,5 @@
+import { initMapCache } from './map-cache.js';
+
 const STYLE = 'https://tiles.openfreemap.org/styles/positron';
 
 const PAPER = '#eef0e6';
@@ -98,10 +100,12 @@ export function loadMap() {
       return m;
     }),
     import('maplibre-gl/dist/maplibre-gl.css'),
-    fetch(STYLE).then((r) => {
-      if (!r.ok) throw new Error('style');
-      return r.json();
-    }),
+    initMapCache()
+      .then(() => fetch(STYLE))
+      .then((r) => {
+        if (!r.ok) throw new Error('style');
+        return r.json();
+      }),
   ]).then(([m, , style]) => ({
     maplibre: m,
     style: paper(style),

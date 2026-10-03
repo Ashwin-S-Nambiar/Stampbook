@@ -125,7 +125,6 @@ export async function seedFirstStamps(existing, replace = false) {
     FIRST.map((t, i) => ({ ...t, created: i + 1, updated: i + 1 })),
     FIRST.flatMap(samplePhotos),
   );
-  // Only mark seeding complete after the whole transaction succeeds.
   try {
     localStorage.setItem(KEY, '1');
   } catch {}

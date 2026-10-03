@@ -116,7 +116,7 @@ export function Viewer({ ids, index, onIndex, onClose, label }) {
                   aria-label="Previous photo"
                   disabled={index === 0}
                   onClick={() => onIndex((i) => i - 1)}
-                  className="btn press absolute start-3 hidden size-11 px-0 text-foil hover-fine:bg-white/10 disabled:opacity-25 sm:inline-flex"
+                  className="btn press absolute inset-s-3 hidden size-11 px-0 text-foil hover-fine:bg-white/10 disabled:opacity-25 sm:inline-flex"
                 >
                   <CaretLeft weight="bold" />
                 </button>
@@ -125,7 +125,7 @@ export function Viewer({ ids, index, onIndex, onClose, label }) {
                   aria-label="Next photo"
                   disabled={index === count - 1}
                   onClick={() => onIndex((i) => i + 1)}
-                  className="btn press absolute end-3 hidden size-11 px-0 text-foil hover-fine:bg-white/10 disabled:opacity-25 sm:inline-flex"
+                  className="btn press absolute inset-e-3 hidden size-11 px-0 text-foil hover-fine:bg-white/10 disabled:opacity-25 sm:inline-flex"
                 >
                   <CaretRight weight="bold" />
                 </button>

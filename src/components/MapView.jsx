@@ -37,6 +37,7 @@ function MapInner({
   const placed = useRef(false);
   const handlers = useRef({});
   const [state, setState] = useState('loading');
+  const [painted, setPainted] = useState(false);
   const active = state === 'mounted' || state === 'ready';
   handlers.current = { onPick, onOpen, mode, trips, focus, picked };
 
@@ -88,9 +89,23 @@ function MapInner({
           if (handlers.current.mode !== 'pick') return;
           handlers.current.onPick?.({ lat: e.lngLat.lat, lng: e.lngLat.lng });
         });
-        m.once('load', () => !dead && setState('ready'));
+        m.once('load', () => {
+          if (dead) return;
+          setState('ready');
+          setPainted(true);
+        });
+        const firstTile = (e) => {
+          if (
+            e.sourceDataType !== 'content' ||
+            !e.tile ||
+            e.sourceId === 'borders'
+          )
+            return;
+          m.off('sourcedata', firstTile);
+          m.once('render', () => !dead && setPainted(true));
+        };
+        m.on('sourcedata', firstTile);
         map.current = m;
-        // Pins and the initial camera do not depend on remote tiles loading.
         setState('mounted');
       })
       .catch(() => !dead && setState('error'));
@@ -242,7 +257,8 @@ function MapInner({
     >
       <div
         ref={box}
-        className="absolute! inset-0 transition-opacity duration-200 ease-out"
+        data-painted={painted}
+        className="sb-map-canvas absolute! inset-0 transition-opacity duration-200 ease-out"
         style={{ opacity: active ? 1 : 0 }}
       />
       {state === 'error' && (

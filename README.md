@@ -37,6 +37,7 @@ it used to be called travel journal and lived at travel.ashwin.co.in, with three
 - **the stamp fills in as you go.** the form shows the stamp live, so you see the country, the name and the dates land on it while you type.
 - **photos.** add up to 24 a trip. they are resized on your device and open full screen with swipe and arrow keys.
 - **a map of it all.** every trip is a pin in its stamp's ink. tap one to open the entry.
+- **cached map areas.** a bounded local cache reuses unchanged tiles on reload. new areas fetch their missing tiles, while map styles and tile-source metadata refresh daily.
 - **one map that flies.** there is only ever one map. it moves with you between pages: open an entry and it flies in to the place with its pin marked and the others faded, go back and it pulls out to fit every trip, start a new stamp and the search sits right on it. on phones it glides from the home page to the top of the entry instead of loading again.
 - **india, drawn the way india draws it.** country borders come from natural earth's india point of view, so jammu and kashmir, ladakh (gilgit-baltistan and aksai chin included) and arunachal pradesh are shown whole, with no line of control.
 - **pages that turn.** six stamps a page, oldest first, like a real passport. swipe, use the arrows, or the arrow keys.
@@ -62,9 +63,9 @@ the whole app is an open passport.
 - **no dark mode.** passport pages are paper, so there is no toggle.
 - **fits every screen.** from a 320 px phone to a 2560 px monitor, portrait or landscape, the page never scrolls sideways or down. the stamps grid measures its space and picks two columns, three, or one long row, whichever gives the biggest stamps.
 - **quiet controls.** icon buttons that need an explanation show a tooltip on hover or keyboard focus, kept out of the way on touch.
-- **nothing jumps.** fonts are self-hosted and preloaded with metric-matched fallbacks, and layout shift measures 0.
-- **ready from the first paint.** the paper surface appears before javascript loads and stays visible as the content arrives. the map starts at the trip area, with pins visible while its tiles load.
-- **motion with a job.** the stamp you tap flies from the grid into its entry (and into the edit form), pages slide forward and back in the direction you are going, and the map has a short fade as its renderer starts. the whole page stays visible on reload, and transitions respect reduced motion.
+- **nothing jumps.** the primary fonts travel with the initial page, with metric-matched fallbacks for the rest. the tested layouts have no layout shift.
+- **ready from the first paint.** the header, footer and paper appear before javascript loads. on reload, a local preview keeps the stamps and page labels visible until the saved view is ready. previews stay in the current tab and are checked against the route, screen size, app version and saved trips.
+- **motion with a job.** the stamp you tap flies from the grid into its entry (and into the edit form), pages slide forward and back in the direction you are going, and the map has a short fade when its first tiles are drawn. the page stays steady on reload, and transitions respect reduced motion.
 
 ## the stack
 
@@ -90,7 +91,7 @@ npm install
 npm run dev
 ```
 
-then open http://localhost:5173. `npm run check` runs biome, and `npm run build` writes `dist/` with a matching `404.html`. no keys needed.
+then open http://localhost:5173. `npm run check` runs biome, and `npm run build` writes `dist/` with the initial page shell, embedded primary fonts and a matching `404.html`. no keys needed.
 
 ### hosting and indexing
 
@@ -112,6 +113,8 @@ src/
     MapSlot.jsx       where the one map sits on each page, and how it moves
     Photos.jsx        thumbnails and the full screen viewer
     Header.jsx        name, menu, backups and sound
+    HeaderFrame.jsx   shared header layout for the app and initial HTML
+    StartupShell.jsx  the initial page before React opens the saved view
     Footer.jsx        shared credit and source links, including the 404
     Book.jsx          the passport and its pages
     Left.jsx          what each view puts on the map page
@@ -123,6 +126,8 @@ src/
     photos.js         resizing and photo urls
     photon.js         search and reverse lookup
     map.js            loads maplibre and recolours the style
+    map-cache.js      connects the map resource cache
+    preview.js        restores a local visual preview during reload
     stamp.js          shape, ink and tilt for a trip
     backup.js         save and restore
     seed.js           the three first stamps
@@ -137,6 +142,9 @@ public/
   samples/            photos for the first stamps
   borders.json        country borders, india's point of view
   paper.svg           the guilloche pattern
+  map-cache-sw.js     bounded cache for map resources
+scripts/
+  render-shell.jsx    renders the shared initial page at build time
 ```
 
 ## known rough edges

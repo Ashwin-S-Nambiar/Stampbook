@@ -1,6 +1,7 @@
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { year } from '../lib/dates.js';
+import { schedulePreview } from '../lib/preview.js';
 import { go } from '../lib/route.js';
 import { sfx } from '../lib/sound.js';
 import { useMapMode } from '../lib/stage.js';
@@ -35,7 +36,7 @@ function Pager({ page, total, onFlip }) {
         disabled={page === 0}
         onClick={() => onFlip(-1)}
       >
-        <CaretLeft weight="bold" className="!size-4" />
+        <CaretLeft weight="bold" className="size-4!" />
       </button>
       <span className="min-w-12 text-center font-mono text-ink-2 text-xs tabular-nums">
         {page + 1} of {total}
@@ -47,7 +48,7 @@ function Pager({ page, total, onFlip }) {
         disabled={page === total - 1}
         onClick={() => onFlip(1)}
       >
-        <CaretRight weight="bold" className="!size-4" />
+        <CaretRight weight="bold" className="size-4!" />
       </button>
     </div>
   );
@@ -64,10 +65,26 @@ export default function Home({ list, spread }) {
   const fresh = useStore(justStamped);
   const pages = useMemo(() => chunk(list), [list]);
   const [page, setPage] = useState(() => {
+    if (!fresh) {
+      try {
+        const saved = Number(sessionStorage.getItem('sb:page'));
+        if (
+          sessionStorage.getItem('sb:page') !== null &&
+          Number.isInteger(saved)
+        )
+          return Math.max(0, Math.min(pages.length - 1, saved));
+      } catch {}
+    }
     const i = fresh ? list.findIndex((t) => t.id === fresh) : -1;
     return Math.floor(Math.max(0, i >= 0 ? i : list.length - 1) / PER_PAGE);
   });
   const [dir, setDir] = useState(1);
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('sb:page', String(page));
+    } catch {}
+    schedulePreview();
+  }, [page]);
   useMapMode('all');
 
   useEffect(() => {
