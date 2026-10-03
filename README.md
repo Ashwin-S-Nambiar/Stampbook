@@ -61,6 +61,7 @@ the whole app is an open passport.
 - **type.** barlow condensed for stamp lettering and page labels, public sans for everything you read, and red hat mono for dates and the passport line.
 - **no dark mode.** passport pages are paper, so there is no toggle.
 - **fits every screen.** from a 320 px phone to a 2560 px monitor, portrait or landscape, the page never scrolls sideways or down. the stamps grid measures its space and picks two columns, three, or one long row, whichever gives the biggest stamps.
+- **quiet controls.** icon buttons that need an explanation show a tooltip on hover or keyboard focus, kept out of the way on touch.
 - **nothing jumps.** fonts are self-hosted and preloaded with metric-matched fallbacks, and layout shift measures 0.
 - **motion with a job.** the stamp you tap flies from the grid into its entry (and into the edit form), pages slide forward and back in the direction you are going, the passport never flashes on reload (it fades in once its fonts are ready), and reduced motion turns it all off.
 
@@ -90,6 +91,10 @@ npm run dev
 
 then open http://localhost:5173. `npm run check` runs biome, and `npm run build` writes `dist/` with a matching `404.html`. no keys needed.
 
+### hosting and indexing
+
+production indexing is configured for `stampbook.ashwin.co.in`; vercel sends `noindex, nofollow` on other hosts, including preview deployments. the sitemap lists the home page, and trip, edit and new-entry query urls are marked `noindex, nofollow`. if you deploy under another domain, update the indexing headers and site urls along with it.
+
 ## the shape of it
 
 ```
@@ -106,6 +111,7 @@ src/
     MapSlot.jsx       where the one map sits on each page, and how it moves
     Photos.jsx        thumbnails and the full screen viewer
     Header.jsx        name, menu, backups and sound
+    Footer.jsx        shared credit and source links, including the 404
     Book.jsx          the passport and its pages
     Left.jsx          what each view puts on the map page
     Toaster.jsx       toasts with undo
@@ -124,6 +130,7 @@ src/
     route.js          urls for each view, and which way you are going
     stage.js          the shared map and its page slots
     sound.js          web audio
+    tip.js            tooltips for icon buttons
 public/
   fonts/              barlow condensed, public sans and red hat mono
   samples/            photos for the first stamps
