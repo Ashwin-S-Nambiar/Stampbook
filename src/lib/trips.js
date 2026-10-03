@@ -8,6 +8,7 @@ import {
   putTrip,
 } from './db.js';
 import { forgetPhoto, photoId } from './photos.js';
+import { updatePreviewRevision } from './preview.js';
 import {
   refreshFirstNotes,
   retireOldSamples,
@@ -21,8 +22,11 @@ export const justStamped = createStore(null);
 const order = (a, b) =>
   a.from < b.from ? -1 : a.from > b.from ? 1 : a.created - b.created;
 
-const setList = (fn) =>
-  tripsStore.set((s) => ({ status: 'ready', list: fn(s.list).sort(order) }));
+const setList = (fn) => {
+  const list = fn(tripsStore.get().list).sort(order);
+  updatePreviewRevision(list);
+  tripsStore.set({ status: 'ready', list });
+};
 
 export async function refreshTrips() {
   const list = await listTrips();

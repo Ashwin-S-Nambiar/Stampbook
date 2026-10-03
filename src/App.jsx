@@ -11,6 +11,7 @@ import MapSlot from './components/MapSlot.jsx';
 import MapView from './components/MapView.jsx';
 import Toaster from './components/Toaster.jsx';
 import { useSpread } from './lib/media.js';
+import { schedulePreview } from './lib/preview.js';
 import { go, routeStore } from './lib/route.js';
 import { sfx } from './lib/sound.js';
 import { mapHost, mapStore, pickHandler, slotStore } from './lib/stage.js';
@@ -110,6 +111,10 @@ export default function App() {
   const { status, list } = useStore(tripsStore);
   const spread = useSpread();
   const opened = useRef(false);
+
+  useEffect(() => {
+    if (status !== 'loading') schedulePreview();
+  });
 
   useEffect(() => {
     loadTrips();

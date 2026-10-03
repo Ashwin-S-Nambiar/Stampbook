@@ -308,6 +308,21 @@ body::before {
   box-shadow: inset 28px 0 28px -26px rgb(0 0 0 / 0.32);
 }
 
+@media (width >= 64rem) and (height >= 36rem) {
+  .startup-page {
+    box-shadow: inset 28px 0 28px -26px rgb(0 0 0 / 0.32);
+  }
+}
+
+.sb-map-canvas .maplibregl-canvas {
+  opacity: 0;
+  transition: opacity 240ms var(--ease-out);
+}
+
+.sb-map-canvas[data-painted="true"] .maplibregl-canvas {
+  opacity: 1;
+}
+
 .sb-halo {
   opacity: 0;
   transition: opacity 150ms var(--ease-out);

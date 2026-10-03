@@ -1,29 +1,34 @@
 import './index.css';
-import { lazy, StrictMode, Suspense } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 import { loadMap } from './lib/map.js';
 import { initTips } from './lib/tip.js';
 import { loadTrips } from './lib/trips.js';
 
-const NotFound = lazy(() => import('./components/NotFound.jsx'));
 const home = location.pathname === '/' || location.pathname === '/index.html';
 
 if (home) {
-  loadTrips();
   loadMap().catch(() => {});
+  await Promise.all([
+    loadTrips(),
+    ...[
+      '400 16px "Public Sans"',
+      '600 16px "Barlow Condensed"',
+      '700 16px "Barlow Condensed"',
+      '400 16px "Red Hat Mono"',
+    ].map((face) => document.fonts.load(face).catch(() => {})),
+  ]);
 }
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    {home ? (
+if (home) {
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
       <App />
-    ) : (
-      <Suspense>
-        <NotFound />
-      </Suspense>
-    )}
-  </StrictMode>,
-);
+    </StrictMode>,
+  );
+} else {
+  document.title = 'Not found · Stampbook';
+}
 
 initTips();

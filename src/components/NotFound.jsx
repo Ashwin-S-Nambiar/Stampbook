@@ -1,12 +1,7 @@
-import { useEffect } from 'react';
 import Footer from './Footer.jsx';
 import Mark from './Mark.jsx';
 
 export default function NotFound() {
-  useEffect(() => {
-    document.title = 'Not found · Stampbook';
-  }, []);
-
   return (
     <div className="on-cover grid h-full grid-cols-[minmax(0,1fr)] grid-rows-[minmax(0,1fr)_auto]">
       <main className="grid grid-cols-[minmax(0,1fr)] place-items-center p-4">

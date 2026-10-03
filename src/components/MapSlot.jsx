@@ -31,7 +31,8 @@ export default function MapSlot({ cooperative = false, className = '' }) {
   return (
     <div
       ref={ref}
-      className={`relative overflow-hidden rounded-[4px] bg-paper-2/60 outline outline-rule ${className}`}
+      data-map-slot=""
+      className={`relative overflow-hidden rounded-sm bg-paper-2/60 outline outline-rule ${className}`}
     />
   );
 }

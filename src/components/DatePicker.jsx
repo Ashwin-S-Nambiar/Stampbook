@@ -103,7 +103,7 @@ function Days({
             onMouseEnter={() => setHover(value)}
             onFocus={() => onFocus(value)}
             onKeyDown={onKey}
-            className={`press relative grid size-9 place-items-center rounded-full text-[0.875rem] tabular-nums transition-colors duration-150 disabled:cursor-default disabled:text-ink-3/40 ${edge ? 'bg-ink font-semibold text-paper' : 'text-ink hover-fine:enabled:bg-ink/[0.08]'} ${today && !edge ? 'font-semibold' : ''}`}
+            className={`press relative grid size-9 place-items-center rounded-full text-[0.875rem] tabular-nums transition-colors duration-150 disabled:cursor-default disabled:text-ink-3/40 ${edge ? 'bg-ink font-semibold text-paper' : 'text-ink hover-fine:enabled:bg-ink/8'} ${today && !edge ? 'font-semibold' : ''}`}
           >
             {parse(value).d}
             {today && !edge && (
@@ -157,7 +157,7 @@ function Months({ view, max, onPick }) {
             type="button"
             disabled={disabled}
             onClick={() => onPick(i + 1)}
-            className={`press h-11 rounded-md font-medium text-sm transition-colors duration-150 disabled:text-ink-3/40 ${on ? 'bg-ink text-paper' : 'text-ink hover-fine:enabled:bg-ink/[0.08]'}`}
+            className={`press h-11 rounded-md font-medium text-sm transition-colors duration-150 disabled:text-ink-3/40 ${on ? 'bg-ink text-paper' : 'text-ink hover-fine:enabled:bg-ink/8'}`}
           >
             {name.slice(0, 3)}
           </button>
@@ -179,7 +179,7 @@ function Years({ view, max, onPick }) {
           type="button"
           disabled={y > last}
           onClick={() => onPick(y)}
-          className={`press h-11 rounded-md font-medium text-sm tabular-nums transition-colors duration-150 disabled:text-ink-3/40 ${y === view.y ? 'bg-ink text-paper' : 'text-ink hover-fine:enabled:bg-ink/[0.08]'}`}
+          className={`press h-11 rounded-md font-medium text-sm tabular-nums transition-colors duration-150 disabled:text-ink-3/40 ${y === view.y ? 'bg-ink text-paper' : 'text-ink hover-fine:enabled:bg-ink/8'}`}
         >
           {y}
         </button>
@@ -286,7 +286,7 @@ function Calendar({ from, to, max, onChange, onDone }) {
             )
           }
           aria-label={`${title}. Change ${mode === 'days' ? 'month' : mode === 'months' ? 'year' : 'view'}`}
-          className="press -ms-2 flex items-center gap-1.5 rounded-md px-2 py-1.5 font-display font-bold text-[1.0625rem] text-ink uppercase tracking-[0.12em] transition-colors duration-150 hover-fine:bg-ink/[0.06]"
+          className="press -ms-2 flex items-center gap-1.5 rounded-md px-2 py-1.5 font-display font-bold text-[1.0625rem] text-ink uppercase tracking-[0.12em] transition-colors duration-150 hover-fine:bg-ink/6"
         >
           {title}
           <CaretRight
@@ -299,7 +299,7 @@ function Calendar({ from, to, max, onChange, onDone }) {
             type="button"
             aria-label="Previous"
             onClick={() => step(-1)}
-            className="press grid size-9 place-items-center rounded-full text-ink transition-colors duration-150 hover-fine:bg-ink/[0.06]"
+            className="press grid size-9 place-items-center rounded-full text-ink transition-colors duration-150 hover-fine:bg-ink/6"
           >
             <CaretLeft weight="bold" className="size-4" />
           </button>
@@ -308,14 +308,14 @@ function Calendar({ from, to, max, onChange, onDone }) {
             aria-label="Next"
             disabled={nextDisabled}
             onClick={() => step(1)}
-            className="press grid size-9 place-items-center rounded-full text-ink transition-colors duration-150 hover-fine:enabled:bg-ink/[0.06] disabled:text-ink-3/40"
+            className="press grid size-9 place-items-center rounded-full text-ink transition-colors duration-150 hover-fine:enabled:bg-ink/6 disabled:text-ink-3/40"
           >
             <CaretRight weight="bold" className="size-4" />
           </button>
         </div>
       </div>
 
-      <div ref={grid} className="relative min-h-[18.5rem] overflow-hidden">
+      <div ref={grid} className="relative min-h-74 overflow-hidden">
         <AnimatePresence initial={false} mode="popLayout" custom={dir}>
           <motion.div
             key={`${mode}-${mode === 'days' ? `${view.y}-${view.m}` : mode === 'months' ? view.y : Math.floor((view.y - 1900) / 12)}`}
@@ -590,7 +590,7 @@ export default function DatePicker({ id, from, to, max, onChange, invalid }) {
             type="button"
             aria-label="Clear dates"
             onClick={() => onChange({ from: '', to: '' })}
-            className="press absolute end-0 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-ink-3 transition-colors duration-150 hover-fine:bg-ink/[0.06] hover-fine:text-ink"
+            className="press absolute inset-e-0 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-ink-3 transition-colors duration-150 hover-fine:bg-ink/6 hover-fine:text-ink"
           >
             <X weight="bold" className="size-3.5" />
           </button>

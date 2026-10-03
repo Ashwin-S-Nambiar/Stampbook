@@ -21,72 +21,23 @@
     <meta name="twitter:description" content="Log a trip and it gets stamped into your passport, with your notes, photos and a map of everywhere you've been." />
     <meta name="twitter:image" content="https://stampbook.ashwin.co.in/og.jpg" />
     <script>
-      if (location.pathname !== '/' && location.pathname !== '/index.html') {
-        document.documentElement.dataset.shell = 'missing';
-      }
+      const query = new URLSearchParams(location.search);
+      document.documentElement.dataset.shell =
+        location.pathname !== '/' && location.pathname !== '/index.html'
+          ? 'missing'
+          : query.has('new') || query.get('edit') || query.get('trip')
+            ? 'detail'
+            : 'home';
     </script>
     <style>
       html, body { margin: 0; height: 100%; background: #1d2a47; color-scheme: light; }
       #root { height: 100%; }
-      /* Paint the paper surface before JavaScript arrives, at the book's bounds. */
-      #root:empty::before {
-        content: "";
-        position: fixed;
-        top: calc(2.5rem + max(0.75rem, env(safe-area-inset-top)) + 0.75rem);
-        bottom: calc(1.75rem + max(0.75rem, env(safe-area-inset-bottom)));
-        left: calc(0.75rem + env(safe-area-inset-left));
-        right: calc(0.75rem + env(safe-area-inset-right));
-        border-radius: 10px;
-        background: #eef0e6 url("/paper.svg") 0 0 / 240px 96px;
-        box-shadow: 0 0 0 4px #141d33, 0 24px 50px -20px rgb(0 0 0 / 0.6);
-        pointer-events: none;
-      }
-      @media (min-width: 40rem) {
-        #root:empty::before {
-          left: calc(1.25rem + env(safe-area-inset-left));
-          right: calc(1.25rem + env(safe-area-inset-right));
-        }
-      }
-      @media (min-width: 64rem) and (min-height: 36rem) {
-        #root:empty::before {
-          top: 4.5625rem;
-          bottom: 2.625rem;
-          left: calc(1.75rem + env(safe-area-inset-left));
-          right: calc(1.75rem + env(safe-area-inset-right));
-          box-shadow: 0 0 0 6px #141d33, 0 24px 50px -20px rgb(0 0 0 / 0.6);
-        }
-      }
-      @media (max-height: 30rem) {
-        #root:empty::before { top: 3.5rem; }
-      }
-      /* Reserve the 404 card's height, including its responsive text wrapping. */
-      html[data-shell="missing"] #root:empty::before {
-        content: "This page isn’t in the passport.";
-        top: 50%;
-        bottom: auto;
-        left: 50%;
-        right: auto;
-        width: min(28rem, calc(100% - 2rem));
-        box-sizing: border-box;
-        padding: 13rem 1.5rem 6rem;
-        color: transparent;
-        font: 600 1.125rem / 1.75rem var(--font-sans, sans-serif);
-        text-align: center;
-        text-wrap: balance;
-        transform: translate(-50%, calc(-50% - 1.25rem));
-        box-shadow: 0 0 0 5px #141d33, 0 24px 50px -20px rgb(0 0 0 / 0.6);
-      }
-      @media (min-width: 64rem) and (min-height: 36rem) {
-        html[data-shell="missing"] #root:empty::before {
-          transform: translate(-50%, calc(-50% - 1.3125rem));
-        }
-      }
-      @media (max-height: 30rem) {
-        html[data-shell="missing"] #root:empty::before {
-          padding-block: 8rem 4.5rem;
-        }
-      }
+      [data-startup-missing] { display: none; }
+      html[data-shell="missing"] [data-startup-home],
+      html[data-shell="detail"] [data-startup-add] { display: none; }
+      html[data-shell="missing"] [data-startup-missing] { display: block; }
     </style>
+    <link rel="stylesheet" href="/src/index.css" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -98,9 +49,15 @@
     <link rel="preload" href="/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/red-hat-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin />
-    <link rel="preload" href="https://tiles.openfreemap.org/styles/positron" as="fetch" crossorigin />
-    <link rel="preload" href="https://tiles.openfreemap.org/planet" as="fetch" crossorigin />
     <link rel="preconnect" href="https://photon.komoot.io" crossorigin />
+    <script>
+      for (const face of [
+        '400 16px "Public Sans"',
+        '600 16px "Barlow Condensed"',
+        '700 16px "Barlow Condensed"',
+        '400 16px "Red Hat Mono"',
+      ]) document.fonts.load(face).catch(() => {});
+    </script>
   </head>
   <body>
     <noscript>Stampbook needs JavaScript to open your passport.</noscript>

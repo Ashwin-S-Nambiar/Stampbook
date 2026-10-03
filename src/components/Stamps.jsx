@@ -58,7 +58,7 @@ function Slot({ trip, fresh, onOpen, onLanded, size }) {
           type="button"
           onClick={() => onOpen(trip.id)}
           aria-label={`${trip.place}, ${trip.country}. Open entry`}
-          className="group press relative grid aspect-[184/164] w-full place-items-center rounded-2xl outline-offset-0"
+          className="group press relative grid aspect-184/164 w-full place-items-center rounded-2xl outline-offset-0"
         >
           <motion.div
             layoutId={`stamp-${trip.id}`}
@@ -81,7 +81,7 @@ function Blank({ first, onNew, size }) {
         onClick={onNew}
         aria-label={first ? 'Stamp your first trip' : 'Stamp a trip'}
         style={{ width: size * 0.84 }}
-        className={`group press grid aspect-[184/164] place-items-center content-center gap-2 rounded-xl border-[1.5px] border-dashed p-3 text-center transition-colors duration-150 ${first ? 'border-ink-3/50 text-ink-2 hover-fine:border-ink-2 hover-fine:text-ink' : 'border-ink-3/30 text-ink-3 hover-fine:border-ink-3/70 hover-fine:text-ink-2'}`}
+        className={`group press grid aspect-184/164 place-items-center content-center gap-2 rounded-xl border-[1.5px] border-dashed p-3 text-center transition-colors duration-150 ${first ? 'border-ink-3/50 text-ink-2 hover-fine:border-ink-2 hover-fine:text-ink' : 'border-ink-3/30 text-ink-3 hover-fine:border-ink-3/70 hover-fine:text-ink-2'}`}
       >
         <Plus
           weight="bold"

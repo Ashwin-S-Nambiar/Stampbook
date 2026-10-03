@@ -37,8 +37,6 @@ export const listTrips = async () =>
 export const putTrip = (trip) =>
   run('trips', 'readwrite', (tx) => tx.objectStore('trips').put(trip));
 
-// Keep bundled entries and their photo references together, without fetching
-// or decoding images on the startup path.
 export const putTripsWithPhotos = (trips, photos, removed = []) =>
   run(['trips', 'photos'], 'readwrite', (tx) => {
     const images = tx.objectStore('photos');

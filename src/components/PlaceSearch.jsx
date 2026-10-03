@@ -75,7 +75,7 @@ export default function PlaceSearch({ id, onPick, near, autoFocus, invalid }) {
       <div className="relative">
         <MagnifyingGlass
           weight="bold"
-          className="pointer-events-none absolute start-0.5 top-1/2 size-4 -translate-y-1/2 text-ink-2"
+          className="pointer-events-none absolute inset-s-0.5 top-1/2 size-4 -translate-y-1/2 text-ink-2"
         />
         <input
           ref={input}
@@ -103,7 +103,7 @@ export default function PlaceSearch({ id, onPick, near, autoFocus, invalid }) {
           onKeyDown={onKey}
           className={`line-field ps-7 pe-8 ${invalid ? 'border-b-red' : ''}`}
         />
-        <span className="absolute end-0 top-1/2 flex -translate-y-1/2 items-center">
+        <span className="absolute inset-e-0 top-1/2 flex -translate-y-1/2 items-center">
           {status === 'loading' ? (
             <SpinnerGap className="size-4 animate-spin text-ink-3" />
           ) : q ? (
@@ -157,7 +157,7 @@ export default function PlaceSearch({ id, onPick, near, autoFocus, invalid }) {
                 onPointerDown={(e) => e.preventDefault()}
                 onClick={() => choose(p)}
                 onMouseMove={() => setActive(i)}
-                className={`grid cursor-pointer gap-0.5 px-3 py-2 ${i === active ? 'bg-ink/[0.06]' : ''}`}
+                className={`grid cursor-pointer gap-0.5 px-3 py-2 ${i === active ? 'bg-ink/6' : ''}`}
               >
                 <span className="truncate font-semibold text-[0.9375rem]">
                   {p.name}
