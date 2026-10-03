@@ -1,5 +1,4 @@
-import { deleteTrip, photosFor, putPhotos, putTrip } from './db.js';
-import { makePhoto } from './photos.js';
+import { deleteTrip, photosFor, putTrip, putTripsWithPhotos } from './db.js';
 
 const KEY = 'sb:seeded';
 const OLDER = {
@@ -91,33 +90,45 @@ const FIRST = [
 
 function seeded() {
   try {
-    if (localStorage.getItem(KEY)) return true;
-    localStorage.setItem(KEY, '1');
-    return false;
+    return !!localStorage.getItem(KEY);
   } catch {
     return true;
   }
 }
 
+const PHOTO_SIZES = {
+  'delhi-1': [1400, 1033],
+  'delhi-2': [1400, 1054],
+  'kolkata-1': [1400, 1050],
+  'kolkata-2': [1400, 689],
+  'jaipur-1': [1400, 836],
+  'jaipur-2': [1400, 1050],
+};
+
+function samplePhotos(trip) {
+  return trip.photos.map((name) => {
+    const [w, h] = PHOTO_SIZES[name];
+    return {
+      id: name,
+      trip: trip.id,
+      source: `/samples/${name}.jpg`,
+      w,
+      h,
+      at: 1,
+    };
+  });
+}
+
 export async function seedFirstStamps(existing, replace = false) {
   if ((existing.length && !replace) || seeded()) return false;
-  let at = 1;
-  for (const t of FIRST) {
-    const added = [];
-    for (const name of t.photos) {
-      try {
-        const res = await fetch(`/samples/${name}.jpg`);
-        if (res.ok) added.push(await makePhoto(await res.blob(), t.id));
-      } catch {}
-    }
-    if (added.length) await putPhotos(added);
-    await putTrip({
-      ...t,
-      photos: added.map((p) => p.id),
-      created: at,
-      updated: at++,
-    });
-  }
+  await putTripsWithPhotos(
+    FIRST.map((t, i) => ({ ...t, created: i + 1, updated: i + 1 })),
+    FIRST.flatMap(samplePhotos),
+  );
+  // Only mark seeding complete after the whole transaction succeeds.
+  try {
+    localStorage.setItem(KEY, '1');
+  } catch {}
   return true;
 }
 
@@ -125,24 +136,11 @@ const RENAMED = { 'taj-3': 'Taj Mahal', 'victoria-22': 'Victoria Memorial' };
 
 async function rebuild(t, have) {
   const old = await photosFor(t.id);
-  const added = [];
-  for (const name of t.photos) {
-    try {
-      const res = await fetch(`/samples/${name}.jpg`);
-      if (res.ok) added.push(await makePhoto(await res.blob(), t.id));
-    } catch {}
-  }
-  await deleteTrip(
-    t.id,
+  await putTripsWithPhotos(
+    [{ ...t, created: have.created, updated: Date.now() }],
+    samplePhotos(t),
     old.map((p) => p.id),
   );
-  if (added.length) await putPhotos(added);
-  await putTrip({
-    ...t,
-    photos: added.map((p) => p.id),
-    created: have.created,
-    updated: Date.now(),
-  });
 }
 
 export async function refreshFirstNotes(list) {

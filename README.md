@@ -42,10 +42,10 @@ it used to be called travel journal and lived at travel.ashwin.co.in, with three
 - **pages that turn.** six stamps a page, oldest first, like a real passport. swipe, use the arrows, or the arrow keys.
 - **the numbers, passport style.** the foot of the map page reads like a passport's machine readable line, with the days you have been away and the kilometres between your trips. each entry gets its own line too.
 - **step through entries.** arrows beside the back link move to the previous or next stamp, and the map flies between them.
-- **kept on your device.** trips live in indexeddb in your browser, photos included. nothing is uploaded.
+- **kept on your device.** your trips and the photos you add live in indexeddb in your browser. nothing is uploaded.
 - **backups.** save everything, photos too, as one file, and restore it on another device.
 - **undo.** remove a stamp and you get a few seconds to take it back.
-- **three stamps to start.** the passport opens with three of my own trips, delhi, kolkata and jaipur, so it is never blank. remove them and they stay gone.
+- **three stamps to start.** the passport opens with three of my own trips, delhi, kolkata and jaipur, so it is never blank. their bundled photos load when you open an entry, so they do not hold up the stamps or map. remove them and they stay gone.
 - **sounds.** a page turn, a thud for a new stamp, a shutter for photos and small ticks for taps. made with the web audio api, quiet under the ios silent switch, and mute from the menu.
 - **keys.** `n` for a new stamp, `←` `→` to turn pages, `esc` to close photos.
 - **a 404 with no entry**, and every view sets its own page title.
@@ -63,7 +63,8 @@ the whole app is an open passport.
 - **fits every screen.** from a 320 px phone to a 2560 px monitor, portrait or landscape, the page never scrolls sideways or down. the stamps grid measures its space and picks two columns, three, or one long row, whichever gives the biggest stamps.
 - **quiet controls.** icon buttons that need an explanation show a tooltip on hover or keyboard focus, kept out of the way on touch.
 - **nothing jumps.** fonts are self-hosted and preloaded with metric-matched fallbacks, and layout shift measures 0.
-- **motion with a job.** the stamp you tap flies from the grid into its entry (and into the edit form), pages slide forward and back in the direction you are going, the passport never flashes on reload (it fades in once its fonts are ready), and reduced motion turns it all off.
+- **ready from the first paint.** the paper surface appears before javascript loads and stays visible as the content arrives. the map starts at the trip area, with pins visible while its tiles load.
+- **motion with a job.** the stamp you tap flies from the grid into its entry (and into the edit form), pages slide forward and back in the direction you are going, and the map has a short fade as its renderer starts. the whole page stays visible on reload, and transitions respect reduced motion.
 
 ## the stack
 

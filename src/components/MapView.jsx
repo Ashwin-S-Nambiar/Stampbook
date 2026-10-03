@@ -27,7 +27,6 @@ function MapInner({
   onPick,
   onOpen,
   cooperative = false,
-  intro = false,
   className = '',
 }) {
   const box = useRef(null);
@@ -38,7 +37,8 @@ function MapInner({
   const placed = useRef(false);
   const handlers = useRef({});
   const [state, setState] = useState('loading');
-  handlers.current = { onPick, onOpen, mode, trips };
+  const active = state === 'mounted' || state === 'ready';
+  handlers.current = { onPick, onOpen, mode, trips, focus, picked };
 
   useEffect(() => {
     let dead = false;
@@ -47,11 +47,30 @@ function MapInner({
       .then(({ maplibre, style }) => {
         if (dead || !box.current) return;
         lib.current = maplibre;
+        const current = handlers.current;
+        const target =
+          current.mode === 'one'
+            ? current.focus
+            : current.mode === 'pick'
+              ? current.picked
+              : null;
+        const bounds = new maplibre.LngLatBounds();
+        for (const t of current.trips) bounds.extend([t.lng, t.lat]);
         const m = new maplibre.Map({
           container: box.current,
           style,
-          center: [78, 22],
-          zoom: 1.2,
+          center: target ? [target.lng, target.lat] : [78, 22],
+          zoom: target ? (current.mode === 'one' ? 7 : target.zoom || 6) : 1.2,
+          ...(!target && current.trips.length
+            ? {
+                bounds,
+                fitBoundsOptions: {
+                  padding: Math.min(64, box.current.clientWidth / 6),
+                  maxZoom: current.trips.length === 1 ? 4 : 5,
+                  duration: 0,
+                },
+              }
+            : {}),
           minZoom: 0,
           maxZoom: 16,
           attributionControl: false,
@@ -71,6 +90,8 @@ function MapInner({
         });
         m.once('load', () => !dead && setState('ready'));
         map.current = m;
+        // Pins and the initial camera do not depend on remote tiles loading.
+        setState('mounted');
       })
       .catch(() => !dead && setState('error'));
     return () => {
@@ -85,15 +106,15 @@ function MapInner({
 
   useEffect(() => {
     const m = map.current;
-    if (!m || state !== 'ready') return;
+    if (!m || !active) return;
     if (cooperative) m.cooperativeGestures.enable();
     else m.cooperativeGestures.disable();
-  }, [state, cooperative]);
+  }, [active, cooperative]);
 
   useEffect(() => {
     const m = map.current;
     const maplibre = lib.current;
-    if (!m || !maplibre || state !== 'ready') return;
+    if (!m || !maplibre || !active) return;
     const live = new Set(trips.map((t) => t.id));
     for (const [id, mk] of pins.current) {
       if (!live.has(id)) {
@@ -130,7 +151,7 @@ function MapInner({
             : 'rest';
       el.tabIndex = el.dataset.state === 'dim' || !onOpen ? -1 : 0;
     }
-  }, [state, trips, mode, focus, onOpen]);
+  }, [active, trips, mode, focus, onOpen]);
 
   const focusId = focus?.id;
   const focusLat = focus?.lat;
@@ -140,17 +161,16 @@ function MapInner({
   useEffect(() => {
     const m = map.current;
     const maplibre = lib.current;
-    if (!m || !maplibre || state !== 'ready' || mode === 'pick') return;
+    if (!m || !maplibre || !active || mode === 'pick') return;
     const first = !placed.current;
     placed.current = true;
     const instant = still();
     if (mode === 'one' && focusId != null) {
       const target = { center: [focusLng, focusLat], zoom: 7 };
-      if (first && !intro) {
+      if (first) {
         m.jumpTo(target);
         return;
       }
-      if (first) m.jumpTo({ center: target.center, zoom: 2.6 });
       m.flyTo({
         ...target,
         duration: instant ? 0 : 1400,
@@ -178,12 +198,12 @@ function MapInner({
       easing: EASE,
       essential: true,
     });
-  }, [state, mode, focusId, focusLat, focusLng, count, intro]);
+  }, [active, mode, focusId, focusLat, focusLng, count]);
 
   useEffect(() => {
     const m = map.current;
     const maplibre = lib.current;
-    if (!m || !maplibre || state !== 'ready') return;
+    if (!m || !maplibre || state === 'loading' || state === 'error') return;
     if (mode !== 'pick' || !picked) {
       pickMarker.current?.remove();
       pickMarker.current = null;
@@ -205,7 +225,7 @@ function MapInner({
     pickMarker.current
       .getElement()
       .style.setProperty('--ink', picked.color || '#1f2430');
-    if (picked.fly) {
+    if (picked.fly && state === 'ready') {
       m.flyTo({
         center: [picked.lng, picked.lat],
         zoom: Math.max(m.getZoom(), picked.zoom || 6),
@@ -222,7 +242,8 @@ function MapInner({
     >
       <div
         ref={box}
-        className={`!absolute inset-0 transition-opacity duration-500 ease-out ${state === 'ready' ? 'opacity-100' : 'opacity-0'}`}
+        className="absolute! inset-0 transition-opacity duration-200 ease-out"
+        style={{ opacity: active ? 1 : 0 }}
       />
       {state === 'error' && (
         <div className="absolute inset-0 grid place-items-center">

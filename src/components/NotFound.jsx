@@ -8,9 +8,9 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="on-cover grid h-full grid-rows-[minmax(0,1fr)_auto]">
-      <main className="grid place-items-center p-4">
-        <div className="paper grid w-full max-w-md justify-items-center gap-6 rounded-[10px] px-6 pt-10 pb-8 short:gap-3 short:pt-5 short:pb-5 text-center shadow-[0_0_0_5px_var(--color-cover-deep),0_24px_50px_-20px_rgb(0_0_0/0.6)]">
+    <div className="on-cover grid h-full grid-cols-[minmax(0,1fr)] grid-rows-[minmax(0,1fr)_auto]">
+      <main className="grid grid-cols-[minmax(0,1fr)] place-items-center p-4">
+        <div className="paper grid min-w-0 w-full max-w-md justify-items-center gap-6 rounded-[10px] px-6 pt-10 pb-8 short:gap-3 short:pt-5 short:pb-5 text-center shadow-[0_0_0_5px_var(--color-cover-deep),0_24px_50px_-20px_rgb(0_0_0/0.6)]">
           <svg
             viewBox="-100 -60 200 120"
             className="w-60 -rotate-6 short:w-40"

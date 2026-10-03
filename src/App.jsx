@@ -1,5 +1,5 @@
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Book, Page } from './components/Book.jsx';
 import Entry from './components/Entry.jsx';
@@ -61,7 +61,6 @@ function SharedMap({ list }) {
       onPick={onPick}
       onOpen={open}
       cooperative={cfg.cooperative}
-      intro
       className="h-full w-full"
     />,
     mapHost,
@@ -110,6 +109,7 @@ export default function App() {
   const route = useStore(routeStore);
   const { status, list } = useStore(tripsStore);
   const spread = useSpread();
+  const opened = useRef(false);
 
   useEffect(() => {
     loadTrips();
@@ -143,6 +143,9 @@ export default function App() {
   }, []);
 
   const ready = status !== 'loading';
+  useEffect(() => {
+    if (ready) opened.current = true;
+  }, [ready]);
   const trip =
     route.id && ready ? list.find((t) => t.id === route.id) || null : null;
 
@@ -169,7 +172,7 @@ export default function App() {
               key={key}
               custom={route.dir}
               variants={pageMotion(spread ? 18 : 36)}
-              initial="enter"
+              initial={opened.current ? 'enter' : false}
               animate="center"
               exit="exit"
               className="flex min-h-0 min-w-0 flex-1"
@@ -180,7 +183,7 @@ export default function App() {
         </Book>
         <Footer />
       </div>
-      <SharedMap list={ready ? list : []} />
+      {ready && <SharedMap list={list} />}
       <Toaster />
     </MotionConfig>
   );
