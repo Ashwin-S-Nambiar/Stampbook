@@ -17,10 +17,20 @@ export async function exportBackup() {
   const photos = [];
   for (const t of trips) {
     for (const p of await photosFor(t.id)) {
+      const { source, ...photo } = p;
+      let full = p.full;
+      let thumb = p.thumb;
+      if (source && (!full || !thumb)) {
+        const res = await fetch(source);
+        if (!res.ok) throw new Error('sample photo');
+        const blob = await res.blob();
+        full ||= blob;
+        thumb ||= blob;
+      }
       photos.push({
-        ...p,
-        full: await toData(p.full),
-        thumb: await toData(p.thumb),
+        ...photo,
+        full: await toData(full),
+        thumb: await toData(thumb),
       });
     }
   }

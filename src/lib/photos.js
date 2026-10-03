@@ -44,6 +44,7 @@ export async function makePhoto(file, trip) {
 const urls = new Map();
 
 export function localUrl(photo, size) {
+  if (!photo[size] && photo.source) return photo.source;
   const key = `${photo.id}:${size}`;
   if (!urls.has(key)) urls.set(key, URL.createObjectURL(photo[size]));
   return urls.get(key);
