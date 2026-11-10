@@ -103,6 +103,11 @@ const iconWeights = (keep) => ({
 
 export default defineConfig({
   worker: { format: 'es' },
+  build: {
+    // maplibre-gl ships as one ~1.1 MB chunk; splitting the app made it slower
+    // and less reliable, so raise the warning limit instead
+    chunkSizeWarningLimit: 1300,
+  },
   plugins: [
     react(),
     tailwindcss(),
