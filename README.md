@@ -69,18 +69,18 @@ the whole app is an open passport.
 
 ## the stack
 
-| layer | choices |
-| --- | --- |
-| ui | [react 19](https://react.dev) and [vite 8](https://vite.dev) |
-| style | [tailwind css 4](https://tailwindcss.com) |
-| motion | [motion](https://motion.dev) for the stamp, page turns, photos, the menu and toasts |
-| map | [maplibre gl js](https://maplibre.org) with [openfreemap](https://openfreemap.org) tiles, recoloured to the paper, and [natural earth](https://www.naturalearthdata.com) borders |
-| search | [photon](https://photon.komoot.io), built on openstreetmap data |
-| storage | indexeddb |
-| type | [barlow condensed](https://fonts.google.com/specimen/Barlow+Condensed), [public sans](https://public-sans.digital.gov) and [red hat mono](https://fonts.google.com/specimen/Red+Hat+Mono), self-hosted |
-| icons | [phosphor](https://phosphoricons.com) |
-| lint and format | [biome](https://biomejs.dev) |
-| hosting | [vercel](https://vercel.com/) |
+| layer           | choices                                                                                                                                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ui              | [react 19](https://react.dev) and [vite 8](https://vite.dev)                                                                                                                                           |
+| style           | [tailwind css 4](https://tailwindcss.com)                                                                                                                                                              |
+| motion          | [motion](https://motion.dev) for the stamp, page turns, photos, the menu and toasts                                                                                                                    |
+| map             | [maplibre gl js](https://maplibre.org) with [openfreemap](https://openfreemap.org) tiles, recoloured to the paper, and [natural earth](https://www.naturalearthdata.com) borders                       |
+| search          | [photon](https://photon.komoot.io), built on openstreetmap data                                                                                                                                        |
+| storage         | indexeddb                                                                                                                                                                                              |
+| type            | [barlow condensed](https://fonts.google.com/specimen/Barlow+Condensed), [public sans](https://public-sans.digital.gov) and [red hat mono](https://fonts.google.com/specimen/Red+Hat+Mono), self-hosted |
+| icons           | [phosphor](https://phosphoricons.com)                                                                                                                                                                  |
+| lint and format | [biome](https://biomejs.dev)                                                                                                                                                                           |
+| hosting         | [vercel](https://vercel.com/)                                                                                                                                                                          |
 
 ## running it
 

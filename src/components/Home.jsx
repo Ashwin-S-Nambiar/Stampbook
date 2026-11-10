@@ -88,7 +88,7 @@ export default function Home({ list, spread }) {
   useMapMode('all');
 
   useEffect(() => {
-    setPage((p) => (p > pages.length - 1 ? pages.length - 1 : p));
+    setPage((p) => Math.min(p, pages.length - 1));
   }, [pages.length]);
 
   useEffect(() => {
